@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://jtfeqwu4mv7b" path="res://Player2d.tscn" id="1_i3dtq"]
 [ext_resource type="PackedScene" uid="uid://bmflg2fb8pxyt" path="res://pine_tree.tscn" id="2_ids6x"]
 [ext_resource type="Script" path="res://PointCounter.gd" id="3_3aq5p"]
-[ext_resource type="PackedScene" uid="uid://dgux63wyyaaw1" path="res://mob_slime.tscn" id="3_dnkm1"]
+[ext_resource type="Script" path="res://HealthButton.gd" id="3_irdty"]
 
 [sub_resource type="Curve2D" id="Curve2D_vex04"]
 _data = {
@@ -28,6 +28,7 @@ grow_vertical = 2
 color = Color(0.755169, 0.514188, 0.10094, 1)
 
 [node name="Player" parent="." instance=ExtResource("1_i3dtq")]
+unique_name_in_owner = true
 position = Vector2(558, 293)
 
 [node name="Path2D" type="Path2D" parent="Player"]
@@ -38,7 +39,25 @@ curve = SubResource("Curve2D_vex04")
 [node name="SpawnPath" type="PathFollow2D" parent="Player/Path2D"]
 unique_name_in_owner = true
 position = Vector2(-130, -236.063)
-rotation = -0.00138241
+rotation = -0.00138258
+
+[node name="HealthButton" type="Button" parent="Player/Path2D"]
+unique_name_in_owner = true
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 538.0
+offset_top = 557.034
+offset_right = 594.0
+offset_bottom = 611.034
+grow_horizontal = 2
+grow_vertical = 0
+action_mode = 0
+text = "+10
+HP"
+script = ExtResource("3_irdty")
 
 [node name="PointCounter" type="Label" parent="Player/Path2D"]
 unique_name_in_owner = true
@@ -47,12 +66,6 @@ offset_top = 34.1125
 offset_right = 222.0
 offset_bottom = 64.1125
 script = ExtResource("3_3aq5p")
-
-[node name="Mob_Slime" parent="." instance=ExtResource("3_dnkm1")]
-position = Vector2(100, 556)
-
-[node name="Mob_Slime2" parent="." instance=ExtResource("3_dnkm1")]
-position = Vector2(905, 109)
 
 [node name="PineTree" parent="." instance=ExtResource("2_ids6x")]
 position = Vector2(191, 500)
@@ -108,4 +121,5 @@ theme_override_font_sizes/font_size = 140
 text = "Game Over!"
 
 [connection signal="health_depleted" from="Player" to="." method="_on_player_health_depleted"]
+[connection signal="button_down" from="Player/Path2D/HealthButton" to="Player/Path2D/PointCounter" method="_on_health_button_button_down"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -1,0 +1,9 @@
+res://gameScreen.tscn
+res://HealthButton.gd
+res://mob_slime.gd
+res://Player2d.gd
+res://PointCounter.gd
+res://characters/slime/slime.tscn
+res://mob_slime.tscn
+res://Player2d.tscn
+res://gameScreen.gd

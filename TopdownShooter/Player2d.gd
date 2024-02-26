@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 signal health_depleted
 
+var maxHealth = 100
 var health = 100.0
 const DMG_RATE = 5.0
 
@@ -27,3 +28,11 @@ func _physics_process(delta):
 			health_depleted.emit()
 		
 			
+func add_health(t):
+	health += t
+	if health > maxHealth:
+		health = maxHealth
+
+
+
+
